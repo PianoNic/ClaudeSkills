@@ -1,52 +1,64 @@
 # ClaudeSkills
 
-A growing collection of [Claude Code](https://claude.com/claude-code) skills you can drop into your own setup.
+A growing collection of [Claude Code](https://claude.com/claude-code) skills, distributed as a plugin marketplace.
 
 ## What's a skill?
 
 A skill is a folder with a `SKILL.md` file that teaches Claude how to handle a specific task — design, scaffolding, debugging, code review, anything procedural. The model auto-invokes it when its `description` matches what you're trying to do, or you can call it manually with `/skill-name`.
 
-## Available skills
+## Available plugins
 
-| Skill | What it does |
+| Plugin | What it does |
 |---|---|
-| [`app-icon-expert`](skills/app-icon-expert/SKILL.md) | Design app icons / favicons / logo marks the right way. Covers SVG construction, dark-mode handling, the modern multi-format favicon set, PWA manifest, iOS/Android rules, and a verification checklist. |
+| [`app-icon-expert`](plugins/app-icon-expert/skills/app-icon-expert/SKILL.md) | Design app icons / favicons / logo marks the right way. Covers SVG construction, dark-mode handling, the modern multi-format favicon set, PWA manifest, iOS/Android rules, and a verification checklist. |
 
 More to come.
 
-## Install
+## Install (one-line)
 
-Pick the scope you want and copy the skill folder into the matching path:
+Inside Claude Code:
+
+```
+/plugin marketplace add PianoNic/ClaudeSkills
+/plugin install app-icon-expert@ClaudeSkills
+```
+
+Then `/reload-plugins` (or restart Claude Code) and the skill is live.
+
+## Manual install (without the marketplace)
+
+If you don't want to add the marketplace, copy a single skill folder into your skill directory:
 
 | Scope | Path | Effect |
 |---|---|---|
-| Personal (all your projects) | `~/.claude/skills/<name>/` | available everywhere on your machine |
-| Project only | `.claude/skills/<name>/` | committed with the project, available to anyone who clones it |
-
-Example:
+| Personal | `~/.claude/skills/<name>/` | available everywhere on your machine |
+| Project | `.claude/skills/<name>/` | committed with the project |
 
 ```bash
 git clone https://github.com/PianoNic/ClaudeSkills.git
-cp -r ClaudeSkills/skills/app-icon-expert ~/.claude/skills/
+cp -r ClaudeSkills/plugins/app-icon-expert/skills/app-icon-expert ~/.claude/skills/
 ```
-
-Or for a project-scoped install:
-
-```bash
-mkdir -p .claude/skills
-cp -r /path/to/ClaudeSkills/skills/app-icon-expert .claude/skills/
-git add .claude/skills/app-icon-expert
-```
-
-After copying, restart Claude Code (or run `/reload-plugins` if you have it) so the skill is picked up.
 
 ## Verify it loaded
 
-Inside Claude Code, type `/` and look for the skill name in the autocomplete list. You can also ask Claude "list available skills" — the loaded skill should appear.
+Inside Claude Code, type `/` and look for the skill name in the autocomplete list, or ask Claude "list available skills".
 
 ## Contributing
 
-PRs welcome. Each skill lives in its own folder under `skills/<kebab-case-name>/` with a `SKILL.md` as the entrypoint. Frontmatter must include at least:
+PRs welcome. Each plugin lives under `plugins/<kebab-case-name>/` with this layout:
+
+```
+plugins/<plugin-name>/
+├── .claude-plugin/
+│   └── plugin.json
+└── skills/
+    └── <skill-name>/
+        └── SKILL.md
+```
+
+Then add an entry to `.claude-plugin/marketplace.json` so the plugin shows up in the catalog.
+
+`SKILL.md` frontmatter must include at least:
 
 ```yaml
 ---

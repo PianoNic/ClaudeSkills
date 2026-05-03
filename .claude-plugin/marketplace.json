@@ -1,0 +1,14 @@
+{
+  "name": "ClaudeSkills",
+  "owner": {
+    "name": "PianoNic",
+    "url": "https://github.com/PianoNic"
+  },
+  "plugins": [
+    {
+      "name": "app-icon-expert",
+      "source": "./plugins/app-icon-expert",
+      "description": "Design app icons, favicons, and logo marks the right way. Covers SVG construction, dark-mode handling, the modern multi-format favicon set, PWA manifest, iOS/Android rules, and a verification checklist."
+    }
+  ]
+}

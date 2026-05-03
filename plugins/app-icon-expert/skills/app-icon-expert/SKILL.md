@@ -19,6 +19,8 @@ Before opening any editor, get answers to:
 
 If the user can't answer #1, do a 60-second mind map together. Do not skip this. Generic in → generic out.
 
+**Expect iteration.** First version is almost always wrong — the user will react to it and that reaction is the most useful design feedback you'll get. Plan on 2–3 rounds: rough concept → refined silhouette → final colors/background. Don't try to nail it in one pass; it makes you over-design and produce cluttered output.
+
 ## Step 1 — Pick a logo type
 
 | Type | Use when |
@@ -39,19 +41,38 @@ These are non-negotiable. Every successful icon obeys them.
 - **Solid-black test**: design works in 1 color first. If it doesn't, the form is broken — fix the form, don't add gradient.
 - **One key element**: not "P + dot + gradient + bg". One.
 - **2–3 colors max**: gradients are visual noise at 16px. Flat is the 2026 trend (Geometric Neo-Minimalism).
-- **High contrast against light AND dark backgrounds**: assume the user has both.
+- **High contrast against light AND dark backgrounds**: assume the user has both. An opaque background (Step 3a) is one valid way to guarantee this.
 - **No fine detail**: anything thinner than ~10% of canvas disappears at favicon scale.
 - **Reproducibility**: must work fax → embroidery → engraving → favicon → PWA tile.
 - **Distinct silhouette**: outline-only should still be recognizable.
 
 ## Step 3 — Avoid the AI startup cliché
 
-The dominant 2024–2026 cliché:
-- Rounded square background
-- Purple → blue or pink → orange gradient
+The dominant 2024–2026 cliché is the **combination** of:
+- Rounded square / squircle background, **AND**
+- Purple → blue or pink → orange gradient, **AND**
 - Sparkle ✦ or single letter monogram in white
 
-If you produce this, you've made a generic icon. Pick literally any other approach.
+The **gradient** is the actual offender, not the rounded square. Vercel, Linear, GitHub, Anthropic's CLI mark, Stripe — all use a contained mark on a solid background and look distinctive. What ruins the icon is the gradient (which becomes mush at 16px and screams "generic AI startup" to anyone who's seen 50 of these).
+
+Default to **flat solid color** (often pitch black or pitch white) for the background. If you want depth, use one subtle internal element, not a gradient overlay.
+
+## Step 3a — Contained vs. open marks (favicon-specific)
+
+**For favicons specifically**, a contained mark (symbol on an opaque colored background) usually beats an open mark (transparent symbol with no background):
+
+| Open mark (no background) | Contained mark (squircle/circle background) |
+|---|---|
+| Adapts to whatever color the browser tab is | You control the visual frame |
+| Can disappear on dark mode tabs without CSS handling | Always reads the same way |
+| Smaller silhouette → less recognizable at 16px | Full canvas use → recognizable |
+| Better for OS dock icons that auto-mask | Worse if the OS adds its own mask (use maskable variant) |
+
+For "I'm building a web app and want it to look professional in browser tabs" → almost always go contained. For "I want my icon to integrate into many surfaces transparently" → open.
+
+If contained: use a **rounded square (`rx ≈ 22% of canvas`)** or an actual **squircle path** (Apple-style superellipse, slightly tighter at corners than a rounded square). Both fine; squircle is more refined.
+
+Don't apologize for using a rounded background. It's the dominant industry shape because it works, not because it's lazy. The cliché is the gradient on top, not the shape underneath.
 
 ## Step 4 — SVG construction rules
 

@@ -1,6 +1,6 @@
 {
   "name": "app-icon-expert",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Design app icons, favicons, and logo marks the right way. Covers SVG construction, dark-mode handling, the modern multi-format favicon set, PWA manifest, iOS/Android rules, and a verification checklist.",
   "author": {
     "name": "PianoNic",
